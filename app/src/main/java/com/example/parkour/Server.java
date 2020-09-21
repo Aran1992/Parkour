@@ -9,10 +9,10 @@ import java.io.InputStream;
 
 import fi.iki.elonen.NanoHTTPD;
 
-public class App extends NanoHTTPD {
+public class Server extends NanoHTTPD {
     private AssetManager assetManager;
 
-    public App(AssetManager assetManager) throws IOException {
+    public Server(AssetManager assetManager) throws IOException {
         super(8080);
         this.assetManager = assetManager;
         start(NanoHTTPD.SOCKET_READ_TIMEOUT, false);
@@ -24,7 +24,6 @@ public class App extends NanoHTTPD {
         try {
             String uri = session.getUri();
             uri = uri.substring(1);
-            Log.d("URI", uri);
             InputStream inputStream = assetManager.open(uri);
             String extension = MimeTypeMap.getFileExtensionFromUrl(uri);
             String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
